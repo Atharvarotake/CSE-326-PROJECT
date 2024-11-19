@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creative Music Player</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      /* background: linear-gradient(135deg, #1e3c72, #2a5298); */
+      font-family: Arial, sans-serif;
+      color: #fff;
+      background-image: url(/egUnMCU-music-anime-wallpaper.jpg);
+    }
+
+    .music-player {
+      width: 320px;
+      background: #ffffff1a;
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+
+    .cover {
+      position: relative;
+      height: 200px;
+      background: url('https://via.placeholder.com/320x200') no-repeat center/cover;
+    }
+
+    .cover:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .player-controls {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .song-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .song-artist {
+      font-size: 0.9rem;
+      margin: 5px 0 20px;
+      color: #ddd;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 5px;
+      background: #ddd;
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 10px 0;
+    }
+
+    .progress {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(135deg, #f093fb, #f5576c);
+    }
+
+    .control-buttons {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .control-buttons button {
+      background: linear-gradient(135deg, #42e695, #3bb2b8);
+      border: none;
+      color: #fff;
+      font-size: 1.2rem;
+      padding: 10px 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .control-buttons button:hover {
+      transform: scale(1.1);
+    }
+
+    .control-buttons button:active {
+      transform: scale(1.05);
+      box-shadow: 0 3px 7px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="music-player">
+    <div class="cover" id="cover"></div>
+    <div class="player-controls">
+      <div class="song-title" id="song-title">Song Title</div>
+      <div class="song-artist" id="song-artist">Artist Name</div>
+      <div class="progress-bar">
+        <div class="progress" id="progress"></div>
+      </div>
+      <div class="control-buttons">
+        <button id="prev">&#9664;&#9664;</button>
+        <button id="play">&#9658;</button>
+        <button id="next">&#9654;&#9654;</button>
+      </div>
+    </div>
+  </div>
+
+  <audio id="audio"></audio>
+
+  <script>
+    // Songs Array
+    const songs = [
+      {
+        title: "ARCADE",
+        artist: "Artist One",
+        src: "Duncan_Laurence_-_Arcade_[_YouConvert.net_].mp3", // Replace with your song file
+        cover: "A.jpg"
+      },
+      {
+        title: "SANAM TERI KASAM",
+        artist: "Artist Two",
+        src: "Sanam_Teri_Kasam_Title_Song___Harshvardhan__Mawra___Himesh_Reshammiya__Ankit_Tiwari_[_YouConvert.net_].mp3", // Replace with your song file
+        cover: "B.jpg"
+      },
+      {
+        title: "SUGAR AND BROWNIES",
+        artist: "Artist Two",
+        src: "Dharia_-_Sugar___Brownies__Official_Video___Ultra_Music__[_YouConvert.net_].mp3", // Replace with your song file
+        cover: "d.jpg"
+      },
+      {
+        title: "TERE LIYE",
+        artist: "Artist Two",
+        src: "Tere_Liye_-_Lyrical_-_Prince___Vivek_Oberoi___Atif_Aslam__Shreya_Ghoshal___Hindi_Hits__Dance_Songs_[_YouConvert.net_] (1).mp3", // Replace with your song file
+        cover: "c.jpg"
+      },
+      {
+        title: "DIL MEIN HO TUM",
+        artist: "Artist Two",
+        src: "Lyrical__Dil_Mein_Ho_Tum__WHY_CHEAT_INDIA___Emraan_H__Shreya_D_Rochak_K__Armaan_M__Bappi_L__Manoj_M_[_YouConvert.net_].mp3", // Replace with your song file
+        cover: "E.jpg"
+      }
+    ];
+
+    let currentSongIndex = 0;
+    const audio = document
+    .getElementById('audio');
+    const playButton = document.getElementById('play');
+    const prevButton = document.getElementById('prev');
+    const nextButton = document.getElementById('next');
+    const progress = document.getElementById('progress');
+    const songTitle = document.getElementById('song-title');
+    const songArtist = document.getElementById('song-artist');
+    const cover = document.getElementById('cover');
+
+    // Load Song
+    function loadSong(song) {
+      songTitle.textContent = song.title;
+      songArtist.textContent = song.artist;
+      audio.src = song.src;
+      cover.style.backgroundImage = `url('${song.cover}')`;
+    }
+
+    // Play Song
+    function playSong() {
+      audio.play();
+      playButton.innerHTML = "&#10074;&#10074;"; // Pause Icon
+    }
+
+    // Pause Song
+    function pauseSong() {
+      audio.pause();
+      playButton.innerHTML = "&#9658;"; // Play Icon
+    }
+
+    // Toggle Play/Pause
+    playButton.addEventListener('click', () => {
+      if (audio.paused) {
+        playSong();
+      } else {
+        pauseSong();
+      }
+    });
+
+    // Previous Song
+    prevButton.addEventListener('click', () => {
+      currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+      loadSong(songs[currentSongIndex]);
+      playSong();
+    });
+
+    // Next Song
+    nextButton.addEventListener('click', () => {
+      currentSongIndex = (currentSongIndex + 1) % songs.length;
+      loadSong(songs[currentSongIndex]);
+      playSong();
+    });
+
+    // Update Progress Bar
+    audio.addEventListener('timeupdate', () => {
+      const progressPercent = (audio.currentTime / audio.duration) * 100;
+      progress.style.width = `${progressPercent}%`;
+    });
+
+    // Load Initial Song
+    loadSong(songs[currentSongIndex]);
+  </script>
+</body>
+</html>

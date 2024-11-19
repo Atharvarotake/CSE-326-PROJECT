@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Music App</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* styles.css */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #1a1a2e;
+  color: white;
+}
+
+.nav a {
+  margin-left: 1rem;
+  text-decoration: none;
+  color: white;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+}
+
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  color: white;
+}
+
+.hero-content {
+  max-width: 50%;
+}
+
+.hero h1 {
+  font-size: 3rem;
+}
+
+.hero p {
+  margin: 1rem 0;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  background: #ff477e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #ff7599;
+}
+
+.hero-image img {
+  max-width: 100%;
+  border-radius: 15px;
+}
+
+.features {
+  display: flex;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: #f7f7f7;
+}
+
+.feature-card {
+  flex: 1;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card h2 {
+  margin-bottom: 0.5rem;
+  color: #6a11cb;
+}
+
+.footer {
+  text-align: center;
+  padding: 1rem;
+  background: #1a1a2e;
+  color: white;
+}
+
+.footer-nav a {
+  margin: 0 0.5rem;
+  color: white;
+  text-decoration: none;
+}
+
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">🎵 MyMusic</div>
+    <nav class="nav">
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#download">Download</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Your Music, Anytime, Anywhere</h1>
+      <p>Stream millions of songs, create playlists, and share with friends.</p>
+      <button class="btn"><a href="/index1.html">start listening</a></button>
+      
+    </div>
+    <div class="hero-image">
+      <img src="/r.jpg" alt="Music streaming" />
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2024 MyMusic App. All Rights Reserved.</p>
+    <nav class="footer-nav">
+      <a href="#privacy">Privacy Policy</a>
+      <a href="#terms">Terms of Service</a>
+    </nav>
+  </footer>
+  
+</body>
+</html>
